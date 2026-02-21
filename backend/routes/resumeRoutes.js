@@ -15,7 +15,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     formData.append("file", req.file.buffer, req.file.originalname);
 
     const flaskResponse = await axios.post(
-      '${FLASK_API}/upload_resume',
+      `${FLASK_API}/upload_resume`,
       formData,
       { headers: formData.getHeaders() }
     );
@@ -44,7 +44,7 @@ router.post("/analyze", async (req, res) => {
   try {
     // 1️⃣ Call Flask
     const flaskResponse = await axios.post(
-      '${FLASK_API}/predict',
+      `${FLASK_API}/predict`,
       req.body
     );
 
