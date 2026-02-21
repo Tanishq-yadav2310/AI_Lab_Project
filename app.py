@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from models.model_loader import predict_resume
 from PyPDF2 import PdfReader
 import re
+import os
 
 app = Flask(__name__)
 
@@ -128,4 +129,5 @@ def upload_resume():
 # =========================
 
 if __name__ == "__main__":
-    app.run(port=8000, debug=True)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
