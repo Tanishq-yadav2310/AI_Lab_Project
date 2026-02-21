@@ -15,6 +15,7 @@ function App() {
   const [mode, setMode] = useState(null);
   const [hoveredButton, setHoveredButton] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
+  const BACKEND_URL = "https://ai-lab-project-rl0e.onrender.com";
 
   const inputStyle = {
     width: "100%",
@@ -44,7 +45,7 @@ function App() {
     try {
       
       const response = await axios.post(
-        "http://127.0.0.1:4000/api/resume/analyze",
+        '${BACKEND_URL}/api/resume/analyze',
         formData,
       );
       console.log("FULL RESPONSE:", response.data);
@@ -74,7 +75,7 @@ function App() {
     try {
       
       const response = await axios.post(
-        "http://127.0.0.1:4000/api/resume/upload",
+        '${BACKEND_URL}/api/resume/upload',
         uploadData,
       );
       console.log("FULL RESPONSE:", response.data);
