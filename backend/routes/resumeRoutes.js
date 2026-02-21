@@ -7,6 +7,7 @@ const router = express.Router();
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 // const upload = multer();
+const FLASK_API = process.env.FLASK_API;
 
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
@@ -14,7 +15,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     formData.append("file", req.file.buffer, req.file.originalname);
 
     const flaskResponse = await axios.post(
-      "http://127.0.0.1:8000/upload_resume",
+      '${FLASK_API}/upload_resume',
       formData,
       { headers: formData.getHeaders() }
     );
@@ -43,7 +44,7 @@ router.post("/analyze", async (req, res) => {
   try {
     // 1️⃣ Call Flask
     const flaskResponse = await axios.post(
-      "http://127.0.0.1:8000/predict",
+      '${FLASK_API}/predict',
       req.body
     );
 
