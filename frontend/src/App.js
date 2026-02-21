@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Analytics } from "@vercel/analytics/react"
 
 const BACKEND_URL = "https://ai-lab-project-rl0e.onrender.com";
 
@@ -459,7 +460,9 @@ function App() {
           </div>
         )}
       </div>
+      <Analytics />
     </div>
+    
   );
 }
 
