@@ -4,19 +4,19 @@ Artificial Intelligence Lab Project
 
 Overview
 
-This project is an AI-based Resume Analyzer developed as part of my Artificial Intelligence Lab coursework. The main goal of this project is to analyze a candidate’s resume and predict whether the candidate is suitable or not suitable based on extracted features.
+--> This project is an AI-based Resume Analyzer developed as part of my Artificial Intelligence Lab coursework. The main goal of this project is to analyze a candidate’s resume and predict whether the candidate is suitable or not suitable based on extracted features.
 
 The system supports two modes:
 
-Manual feature entry
+1. Manual feature entry
 
-Uploading a PDF resume for automatic analysis
+2. Uploading a PDF resume for automatic analysis
 
-The project combines Machine Learning models with a React frontend and a Flask backend.
+--> The project combines Machine Learning models with a React frontend and a Flask backend.
 
 How It Works
 
-When a resume is analyzed, the system evaluates five main features:
+> When a resume is analyzed, the system evaluates five main features:
 
 Skill Match Score
 
@@ -28,25 +28,25 @@ Certifications Count
 
 Project Count
 
-For uploaded resumes, the system extracts text from the PDF and automatically calculates these features using simple NLP-based logic.
+> For uploaded resumes, the system extracts text from the PDF and automatically calculates these features using simple NLP-based logic.
 
-The extracted features are then passed to trained machine learning models which generate predictions.
+> The extracted features are then passed to trained machine learning models which generate predictions.
 
-Machine Learning Models Used
+--> Machine Learning Models Used:- 
 
 I trained and compared three different models:
 
-Naive Bayes
+1. Naive Bayes
 
-k-Nearest Neighbour (kNN)
+2. k-Nearest Neighbour (kNN)
 
-Neural Network (MLPClassifier)
+3. Neural Network (MLPClassifier)
 
-Each model predicts whether the candidate is Suitable or Not Suitable and also provides a confidence score.
+> Each model predicts whether the candidate is Suitable or Not Suitable and also provides a confidence score.
 
 The final decision is based on majority voting across the three models.
 
-Additional Feature
+--> Additional Feature
 
 The system also shows:
 
@@ -60,7 +60,7 @@ Areas of improvement (for example, low experience or low skill score)
 
 This makes the output more meaningful instead of just showing a simple classification result.
 
-Tech Stack
+# --> Tech Stack
 
 Frontend:
 
@@ -80,7 +80,7 @@ Database:
 
 MongoDB (for storing analyzed resumes)
 
-Project Structure
+--> Project Structure
 backend/        → Flask backend
 frontend/       → React frontend
 models/         → Trained ML models
@@ -93,13 +93,8 @@ Dataset
 The dataset is synthetically generated using a custom dataset generator script.
 After refining the generator logic, I retrained all models to better align with real resume feature distributions.
 
-Versioning
 
-v1.0 – Basic prediction system
-
-v1.1 – Improved dataset, retrained models, upload functionality, UI improvements, and area of improvement logic
-
-What I Learned
+#What I Learned
 
 Through this project, I learned:
 
@@ -117,12 +112,3 @@ Version control using Git and GitHub
 
 Future Improvements
 
-Some possible improvements:
-
-Better NLP feature extraction
-
-Real-world dataset training
-
-Deploying the application online
-
-Adding authentication and user accounts
