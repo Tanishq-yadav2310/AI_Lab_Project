@@ -1,4 +1,4 @@
-## AI Resume Analyzer
+# AI Resume Analyzer
 
 >Artificial Intelligence Lab Project
 
