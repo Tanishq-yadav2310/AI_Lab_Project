@@ -5,66 +5,67 @@ const FormData = require("form-data");
 
 const router = express.Router();
 const multer = require("multer");
-const upload = multer();
+const upload = multer({ storage: multer.memoryStorage() });
+// const upload = multer();
 
-router.post("/upload", multer().single("file"), async (req, res) => {
+router.post("/upload", upload.single("file"), async (req, res) => {
   try {
     const formData = new FormData();
     formData.append("file", req.file.buffer, req.file.originalname);
 
-    const response = await axios.post(
+    const flaskResponse = await axios.post(
       "http://127.0.0.1:8000/upload_resume",
       formData,
-      {
-        headers: formData.getHeaders()
-      }
+      { headers: formData.getHeaders() }
     );
 
-    res.json(response.data);
+    const predictions = flaskResponse.data.predictions;
+    const feedback = flaskResponse.data.feedback;
+
+    const resume = new Resume({
+      predictions
+    });
+
+    await resume.save();
+
+    res.json({
+      predictions,
+      feedback
+    });
 
   } catch (error) {
     console.error("Upload route error:", error.message);
-    res.status(500).json({ message: "Upload failed" });
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
 router.post("/analyze", async (req, res) => {
   try {
-    const {
-      skill_match_score,
-      experience_years,
-      education_level,
-      certifications,
-      project_count
-    } = req.body;
+    // 1️⃣ Call Flask
+    const flaskResponse = await axios.post(
+      "http://127.0.0.1:8000/predict",
+      req.body
+    );
 
-    // Call Python API
-    const response = await axios.post("http://127.0.0.1:8000/predict", {
-      skill_match_score,
-      experience_years,
-      education_level,
-      certifications,
-      project_count
-    });
+    const predictions = flaskResponse.data.predictions;
+    const feedback = flaskResponse.data.feedback;
 
-    const predictions = response.data;
-
-    // Save to MongoDB
-    const newResume = new Resume({
-      skill_match_score,
-      experience_years,
-      education_level,
-      certifications,
-      project_count,
+    // 2️⃣ Save to MongoDB
+    const resume = new Resume({
+      ...req.body,
       predictions
     });
 
-    await newResume.save();
+    await resume.save();
 
-    res.json(newResume);
+    // 3️⃣ Send full AI response back to frontend
+    res.json({
+      predictions,
+      feedback
+    });
 
   } catch (error) {
-    console.error(error);
+    console.error("Analyze route error:", error.message);
     res.status(500).json({ message: "Server Error" });
   }
 });

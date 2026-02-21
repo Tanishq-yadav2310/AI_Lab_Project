@@ -13,18 +13,44 @@ app = Flask(__name__)
 def predict():
     data = request.json
 
+    skill_match_score = data["skill_match_score"]
+    experience_years = data["experience_years"]
+    education_level = data["education_level"]
+    certifications = data["certifications"]
+    project_count = data["project_count"]
+
     features = [
-        data["skill_match_score"],
-        data["experience_years"],
-        data["education_level"],
-        data["certifications"],
-        data["project_count"]
+        skill_match_score,
+        experience_years,
+        education_level,
+        certifications,
+        project_count
     ]
 
-    result = predict_resume(features)
+    predictions = predict_resume(features)
 
-    return jsonify(result)
+    # -------- Feedback Logic --------
+    feedback = []
 
+    if skill_match_score < 5:
+        feedback.append("Improve technical skill match with job description.")
+
+    if experience_years < 2:
+        feedback.append("Gain more practical work experience.")
+
+    if education_level < 1:
+        feedback.append("Higher education qualification may improve profile strength.")
+
+    if certifications < 1:
+        feedback.append("Consider adding relevant certifications.")
+
+    if project_count < 2:
+        feedback.append("Include more academic or personal projects.")
+
+    return jsonify({
+        "predictions": predictions,
+        "feedback": feedback
+    })
 
 # =========================
 # Upload Resume Route
@@ -71,10 +97,31 @@ def upload_resume():
     ]
 
     print("Extracted Features:", features)
+
     predictions = predict_resume(features)
 
-    return jsonify({"predictions": predictions})
+    # -------- Feedback Logic --------
+    feedback = []
 
+    if skill_match_score < 5:
+        feedback.append("Improve technical skill match with job description.")
+
+    if experience_years < 2:
+        feedback.append("Gain more practical work experience.")
+
+    if education_level < 1:
+        feedback.append("Higher education qualification may improve profile strength.")
+
+    if certifications < 1:
+        feedback.append("Consider adding relevant certifications.")
+
+    if project_count < 2:
+        feedback.append("Include more academic or personal projects.")
+
+    return jsonify({
+        "predictions": predictions,
+        "feedback": feedback
+    })
 
 # =========================
 # Run Server
