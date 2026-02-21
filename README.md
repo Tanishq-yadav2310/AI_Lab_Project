@@ -1,8 +1,8 @@
-AI Resume Analyzer
+##AI Resume Analyzer
 
-Artificial Intelligence Lab Project
+>Artificial Intelligence Lab Project
 
-Overview
+#Overview
 
 --> This project is an AI-based Resume Analyzer developed as part of my Artificial Intelligence Lab coursework. The main goal of this project is to analyze a candidate’s resume and predict whether the candidate is suitable or not suitable based on extracted features.
 
@@ -14,7 +14,7 @@ The system supports two modes:
 
 --> The project combines Machine Learning models with a React frontend and a Flask backend.
 
-How It Works
+#How It Works
 
 > When a resume is analyzed, the system evaluates five main features:
 
@@ -32,7 +32,7 @@ Project Count
 
 > The extracted features are then passed to trained machine learning models which generate predictions.
 
---> Machine Learning Models Used:- 
+# --> Machine Learning Models Used:- 
 
 I trained and compared three different models:
 
@@ -46,7 +46,7 @@ I trained and compared three different models:
 
 The final decision is based on majority voting across the three models.
 
---> Additional Feature
+# --> Additional Feature
 
 The system also shows:
 
