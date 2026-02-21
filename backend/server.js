@@ -1,17 +1,23 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-const resumeRoutes = require("./routes/resumeRoutes");
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
+
+const resumeRoutes = require("./routes/resumeRoutes");
+
+
+console.log("MONGO_URI:", process.env.MONGO_URI);
+
+
 app.use("/api/resume", resumeRoutes);
 
-mongoose.connect("mongodb://127.0.0.1:27017/resumeAI")
+mongoose.connect(process.env.MONGO_URI)
 
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
